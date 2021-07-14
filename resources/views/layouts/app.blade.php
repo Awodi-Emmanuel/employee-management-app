@@ -61,11 +61,12 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
+                                                     <i class="fa fa-sign-out-alt fa-sm fa-fw mr-2 text-grey-400 "></i>
                                         {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
+                                        @csrf 
                                     </form>
                                 </div>
                             </li>
