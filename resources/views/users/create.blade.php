@@ -7,13 +7,13 @@
      <h1 class="h3 mb-0 text-gray-800">Users</h1>
 
     </div>
-   <div class="row">
+   <div class="container">
+     <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+               <div class="card-header">{{ __('Create New User')}}</div>
 
-   <div class="card mx-auto">
-        <div class="card-header">
-         Create New User
-        </div>
-        <div class="card-body">
+               <div class="card-body">
                     <form method="POST" action="{{ route('users.store') }}">
                         @csrf
 
@@ -64,21 +64,6 @@
                             </div>
                         </div>
 
-                        <!-- the coppied row -->
-
-                        <!-- <div class="form-group row">
-                            <label for="middle_name" class="col-md-4 col-form-label text-md-right">{{ __('Middlename') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="middle_name" type="text" class="form-control @error('middle_name') is-invalid @enderror" name="middle_name" value="{{ old('middle_name') }}" required autocomplete="middle_name" autofocus>
-
-                                @error('middle_name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div> -->
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email Address') }}</label>
@@ -116,8 +101,10 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
     </div>
-   </div>
+</div>
 
 
 @endsection

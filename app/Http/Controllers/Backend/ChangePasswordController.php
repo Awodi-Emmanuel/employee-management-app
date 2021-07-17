@@ -14,13 +14,13 @@ class ChangePasswordController extends Controller
     {
         $request->validate([
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'confirm_password' => ['required', 'same:password']
+            'password_confirmation' => ['required', 'same:password']
         ]);
 
         $user->update([
             'password' => Hash::make($request->password)
         ]);
 
-        return redirect()->route["users.index"]->with('message', 'User Password Updated successfully');
+        return redirect()->route("users.index")->with('message', 'User Password Updated successfully');
     }
 }

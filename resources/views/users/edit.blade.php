@@ -7,9 +7,10 @@
      <h1 class="h3 mb-0 text-gray-800">Users</h1>
 
     </div>
-   <div class="row">
-
-     <div class="card mx-auto">
+   <div class="container">
+    <div class="row justify-content-center">
+     <div class="col-md-8">
+       <div class="card">
         <div class="card-header">
          {{ __('update User')}}
          <a href="{{ route('users.index') }}" class="float-right">Back</a>
@@ -20,11 +21,12 @@
                         @csrf
                         @method('PUT')
 
+
                         <div class="form-group row">
                             <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
 
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username, $user->username') }}" required autocomplete="username" autofocus>
+                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username', $user->username) }}" required autocomplete="username" autofocus>
 
                                 @error('username')
                                     <span class="invalid-feedback" role="alert">
@@ -92,6 +94,7 @@
                         </div>
                     </form>
                 </div>
+                </div>
                 <div class="m-2 p-2">
                  <form method="POST" action="{{ route('users.destroy', $user->id) }}">
                     @csrf
@@ -100,12 +103,10 @@
 
              </form>
             </div>
-             </div>
 
 
-         </div>
          <div class="col-md-8">
-            <div class="card mx-auto">
+            <div class="card ">
                 <div class="card-header">{{ __('Change Password') }}</div>
 
                 <div class="card-body">
