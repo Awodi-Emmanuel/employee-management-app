@@ -32,7 +32,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="index.html ">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -41,7 +41,7 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/employees">
                     <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                     <span>Employee Management</span></a>
             </li>
@@ -60,8 +60,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('countries.index') }}">Country</a>
                         <a class="collapse-item" href="{{ route('states.index') }}">State</a>
-                        <a class="collapse-item" href="buttons.html">City</a>
-                        <a class="collapse-item" href="cards.html">Department</a>
+                        <a class="collapse-item" href="{{ route('cities.index') }}">City</a>
+                        <a class="collapse-item" href="{{ route('departments.index') }}">Department</a>
                     </div>
                 </div>
             </li>

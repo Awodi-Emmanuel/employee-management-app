@@ -3,6 +3,10 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\ChangePasswordController;
 use App\Http\Controllers\Backend\CountryController;
 use App\Http\Controllers\Backend\StateController;
+use App\Http\Controllers\Backend\CityController;
+use App\Http\Controllers\Backend\DepartmentController;
+use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\EmployeeDataController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,4 +31,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('users', UserController::class);
 Route::resource('countries', CountryController::class);
 Route::resource('states', StateController::class);
+Route::resource('cities', CityController::class);
+Route::resource('departments', DepartmentController::class);
 Route::post('users/{user}/change-password', [ChangePasswordController::class, 'change_password'])->name('users.change.password');
+
+Route::get('{app}', function(){
+    return view('employees.index');
+})->where('(any)', '.*');
+
+Route::get('/employees/get-countries', [EmployeeDataController::class, 'countries']);
+Route::get('/employees/{country}/states', [EmployeeDataController::class, 'states']);
+Route::get('/employees/{state}/cities', [EmployeeDataController::class, 'cities']);
+Route::get('/employees/get-departments', [EmployeeDataController::class, 'departments']);
