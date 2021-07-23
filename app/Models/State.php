@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Country;
+use App\Models\City;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,6 +21,6 @@ class State extends Model
 
     public function cities()
     {
-        return $this->hasMany(Cities::class);
+        return $this->hasMany(City::class);
     }
 }

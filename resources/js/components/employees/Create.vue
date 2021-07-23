@@ -12,26 +12,13 @@
                   </div>
 
                  <div class="card-body">
-                    <form>
-                            <div class="form-group row">
-                            <label for="country_code" class="col-md-4 col-form-label text-md-right">Country</label>
+                    <form @submit.prevent="storeEmployees">
 
-                            <div class="col-md-6">
-                                <select name="country_id" class="form-control" aria-label="Default select example">
-                                    <option selected>Open this select menu</option>
-
-                                    <option value=""></option>
-
-
-                                </select>
-
-                            </div>
-                        </div>
                          <div class="form-group row">
                             <label for="first_name" class="col-md-4 col-form-label text-md-right">First Name</label>
 
                             <div class="col-md-6">
-                                <input id="first_name" type="text" class="form-control" required>
+                                <input v-model="form.first_name" id="first_name" type="text" class="form-control" required>
 
                             </div>
                         </div>
@@ -39,7 +26,7 @@
                             <label for="last_name" class="col-md-4 col-form-label text-md-right">Last Name</label>
 
                             <div class="col-md-6">
-                                <input id="last_name" type="text" class="form-control" required>
+                                <input v-model="form.last_name" id="last_name" type="text" class="form-control" required>
 
                             </div>
                         </div>
@@ -47,7 +34,7 @@
                             <label for="middle_name" class="col-md-4 col-form-label text-md-right">Middle Name</label>
 
                             <div class="col-md-6">
-                                <input id="middle_name" type="text" class="form-control" required>
+                                <input v-model="form.middle_name" id="middle_name" type="text" class="form-control" required>
 
                             </div>
                         </div>
@@ -55,7 +42,23 @@
                             <label for="address" class="col-md-4 col-form-label text-md-right">Address</label>
 
                             <div class="col-md-6">
-                                <input id="address" type="text" class="form-control" required>
+                                <input v-model="form.address" id="address" type="text" class="form-control" required>
+
+                            </div>
+                        </div>
+                              <div class="form-group row">
+                            <label for="country_code" class="col-md-4 col-form-label text-md-right">Country</label>
+
+                            <div class="col-md-6">
+                                <select
+                                v-model="form.country_id"
+                                @change="getStates()"
+                                 name="country" class="form-control" aria-label="Default select example">
+
+                                   <option v-for="country in countries" :key="country.id" :value="country.id">{{ country.name }}
+
+                                   </option>
+                                </select>
 
                             </div>
                         </div>
@@ -63,24 +66,9 @@
                             <label for="state" class="col-md-4 col-form-label text-md-right">State</label>
 
                             <div class="col-md-6">
-                                <select name="state" class="form-control" aria-label="Default select example">
-                                    <option selected>Open this select menu</option>
-
-                                    <option value=""></option>
-
-
-                                </select>
-
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="department" class="col-md-4 col-form-label text-md-right">Department</label>
-
-                            <div class="col-md-6">
-                                <select name="department" class="form-control" aria-label="Default select example">
-                                    <option selected>Open this select menu</option>
-
-                                    <option value=""></option>
+                                <select v-model="form.state_id"
+                                @change="getCities()" name="state" class="form-control" aria-label="Default select example">
+                                    <option v-for="state in states" :key="state.id" :value="state.id">{{ state.name }}</option>
 
 
                                 </select>
@@ -91,35 +79,47 @@
                             <label for="city" class="col-md-4 col-form-label text-md-right">City</label>
 
                             <div class="col-md-6">
-                                <select name="city" class="form-control" aria-label="Default select example">
-                                    <option selected>Open this select menu</option>
+                                <select v-model="form.city_id" name="city" class="form-control" aria-label="Default select example">
 
-                                    <option value=""></option>
+
+                                    <option v-for="city in cities" :key="city.id" :value="city.id">{{ city.name }}</option>
 
 
                                 </select>
 
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="department" class="col-md-4 col-form-label text-md-right">Department</label>
+
+                            <div class="col-md-6">
+                                <select  v-model="form.department_id" name="department" class="form-control" aria-label="Default select example">
+                                    <option v-for="department in departments" :key="department.id" :value="department.id">{{ department.name}}</option>
+
+                                </select>
+
+                            </div>
+                        </div>
+
                          <div class="form-group row">
                             <label for="zip_code" class="col-md-4 col-form-label text-md-right">Zip Code</label>
 
                             <div class="col-md-6">
-                                <input id="zip_code" type="text" class="form-control" required>
+                                <input v-model="form.zip_code" id="zip_code" type="text" class="form-control" required>
 
                             </div>
                         </div>
                          <div class="form-group row mt-2 ">
-                             <label for="zip_code" class="col-md-4 col-form-label text-md-right">Birthdate</label>
+                             <label for="birth_date" class="col-md-4 col-form-label text-md-right">Birthdate</label>
                              <div class="col-md-6">
-                                 <datepicker input-class="form-control"></datepicker>
+                                 <datepicker v-model="form.birthdate" input-class="form-control"></datepicker>
                              </div>
 
                          </div>
                           <div class="form-group row mt-2 ">
                              <label for="zip_code" class="col-md-4 col-form-label text-md-right">Date Hired</label>
                              <div class="col-md-6">
-                                 <datepicker input-class="form-control "></datepicker>
+                                 <datepicker v-model="form.date_hired" input-class="form-control "></datepicker>
                              </div>
 
                          </div>
@@ -144,7 +144,8 @@
 </template>
 
 <script>
-    import Datepicker from 'vuejs-datepicker';
+    import Datepicker from "vuejs-datepicker";
+    import moment from "moment";
 
 export default {
     components: {
@@ -154,22 +155,97 @@ export default {
         return {
             countries: [],
             states: [],
-            citites: [],
-            departments: []
-        },
-        methods: {
+            cities: [],
+            departments: [],
+            form: {
+                first_name: '',
+                last_name: '',
+                middle_name: '',
+                address: '',
+                country_id: '',
+                state_id: '',
+                department_id: '',
+                city_id: '',
+                zip_code: '',
+                birthdate: null,
+                date_hired: null
+
+
+            }
+        };
+
+    },
+    created(){
+        this.getCountries();
+        this.getDepartments();
+    },
+
+     methods: {
             getCountries(){
-                axios.get('/api/employees/countries')
-                .then( res => {
-                    this.countries = res.data
+                axios.get("/api/employees/countries")
+                .then(res => {
+                    this.countries = res.data;
+                    console.log(res.data)
                 }).catch(error => {
                     console.log(console.error)
-                })
+                });
+            },
+            getStates(){
+                axios.get("/api/employees/"+ this.form.country_id + "/states")
+                    .then(res => {
+                        this.states = res.data;
+                        console.log(res.data)
+                    })
+                    .catch(error => {
+                        console.log(console.log);
+                    });
+            },
+            getCities(){
+                axios.get("/api/employees/"+ this.form.state_id + "/cities")
+                    .then(res => {
+                        this.cities = res.data;
+                    })
+                    .catch(error => {
+                        console.log(console.log);
+                    });
+            },
+            getDepartments(){
+                axios.get("/api/employees/departments")
+                    .then(res => {
+                        this.departments = res.data;
+                    })
+                    .catch(error => {
+                        console.log(console.error);
+                    });
+            },
+            storeEmployees() {
+                axios.post("/api/employees", {
+                    'first_name': this.form.first_name,
+                    'last_name': this.form.last_name,
+                    'middle_name': this.form.middle_name,
+                    'address': this.form.address,
+                    'country_id': this.form.country_id,
+                    'state_id': this.form.state_id,
+                    'city_id': this.form.city_id,
+                    'department_id': this.form.department_id,
+                   'zip_code': this.form.zip_code,
+                   'birthdate': this.format_date(this.form.birthdate),
+                    'date_hired': this.format_date(this.form.date_hired)
+                    }).then(res => {
+                        this.$router.push({name: 'EmployeesIndex'});
+                    }).catch(error =>{
+                        console.log(error);
+                    });
+            },
+            format_daye(value){
+
+                if(value){
+                    return moment(String(value)).format('YYYYMMDD');
+                }
             }
         }
-    }
 
-}
+};
 
 </script>
 

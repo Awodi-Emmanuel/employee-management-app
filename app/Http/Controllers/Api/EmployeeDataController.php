@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
+use App\Models\State;
+use App\Models\Department;
 use App\Models\Employee;
+use App\Http\Requests\EmployeeStoreRequest;
 use Illuminate\Http\Request;
 
 class EmployeeDataController extends Controller
@@ -19,14 +23,27 @@ class EmployeeDataController extends Controller
         return response()->json($countries);
     }
 
+    public function states(Country $country)
+    {
+        // $country = Country::all();
+        return response()->json($country->states);
+    }
+
+    public function cities(State $state)
+    {
+        // $country = Country::all();
+        return response()->json($state->cities);
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function departments()
     {
-        //
+        $departments = department::all();
+
+        return response()->json($departments);
     }
 
     /**
@@ -35,9 +52,12 @@ class EmployeeDataController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmployeeStoreRequest $request)
     {
-        //
+        $employee = Employee::create($request->validated());
+
+        return response()->json($employee);
+
     }
 
     /**

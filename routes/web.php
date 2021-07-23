@@ -35,11 +35,7 @@ Route::resource('cities', CityController::class);
 Route::resource('departments', DepartmentController::class);
 Route::post('users/{user}/change-password', [ChangePasswordController::class, 'change_password'])->name('users.change.password');
 
-Route::get('{app}', function(){
+Route::get('{any}', function(){
     return view('employees.index');
-})->where('(any)', '.*');
+})->where('any', '.*');
 
-Route::get('/employees/get-countries', [EmployeeDataController::class, 'countries']);
-Route::get('/employees/{country}/states', [EmployeeDataController::class, 'states']);
-Route::get('/employees/{state}/cities', [EmployeeDataController::class, 'cities']);
-Route::get('/employees/get-departments', [EmployeeDataController::class, 'departments']);
