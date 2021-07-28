@@ -12,7 +12,7 @@
                   </div>
 
                  <div class="card-body">
-                    <form @submit.prevent="updateEmployees">
+                    <form @submit.prevent="updateEmployee">
 
                          <div class="form-group row">
                             <label for="first_name" class="col-md-4 col-form-label text-md-right">First Name</label>
@@ -158,15 +158,15 @@ export default {
             cities: [],
             departments: [],
             form: {
-                first_name: '',
-                last_name: '',
-                middle_name: '',
-                address: '',
-                country_id: '',
-                state_id: '',
-                department_id: '',
-                city_id: '',
-                zip_code: '',
+                first_name: "",
+                last_name: "",
+                middle_name: "",
+                address: "",
+                country_id: "",
+                state_id: "",
+                department_id: "",
+                city_id: "",
+                zip_code: "",
                 birthdate: null,
                 date_hired: null
 
@@ -178,17 +178,17 @@ export default {
     created(){
         this.getCountries();
         this.getDepartments();
-        this.getEmployees();
+        this.getEmployee();
     },
 
      methods: {
-            getEmployees(){
-                 axios.get("/api/employees/ + this.$route.params.id")
+            getEmployee(){
+                 axios.get("/api/employees/" + this.$route.params.id)
                 .then(res => {
                     this.form = res.data.data;
                     this.getStates();
                     this.getCities();
-                    console.log(res.data)
+                    // console.log(res.data)
                 }).catch(error => {
                     console.log(console.error)
                 });
@@ -230,7 +230,7 @@ export default {
                         console.log(console.error);
                     });
             },
-            updateEmployees() {
+            updateEmployee() {
                 axios.put("/api/employees/" + this.$route.params.id, {
                     'first_name': this.form.first_name,
                     'last_name': this.form.last_name,
@@ -249,7 +249,7 @@ export default {
                         console.log(error);
                     });
             },
-            format_daye(value){
+            format_date(value){
 
                 if(value){
                     return moment(String(value)).format('YYYYMMDD');

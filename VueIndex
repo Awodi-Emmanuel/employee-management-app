@@ -67,7 +67,7 @@
         <td>
        <router-link
             class="btn btn-success"
-            :to="{name: 'EmployeesEdit',
+            :to="{name: 'EmployeeEdit',
              params: {id: employee.id}}">
              Edit</router-link>
             <button class="btn btn-danger"

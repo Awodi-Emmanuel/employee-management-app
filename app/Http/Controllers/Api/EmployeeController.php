@@ -16,9 +16,10 @@ use Illuminate\Http\Request;
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $employees = Employee::all();
+
         if($request->search){
             $employees = Employee::where('first_name', "like", "%{$request->search}%")->orwhere('last_name', "like", "%{$request->search}%")->get();
         } elseif($request->department_id){
@@ -60,7 +61,7 @@ use Illuminate\Http\Request;
      */
     public function show(Employee $employee)
     {
-        return new EmployeeSingleResource($employee);
+        return new EmployeeResource($employee);
     }
 
     /**
@@ -81,9 +82,11 @@ use Illuminate\Http\Request;
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(employeeStoreRequest $request, Employee  $employee)
+    public function update(EmployeeStoreRequest $request, Employee  $employee)
     {
         $employee->update($request->validated());
+
+        return response()->json('Employee Updated successfully');
     }
 
     /**
@@ -96,6 +99,6 @@ use Illuminate\Http\Request;
     {
         $employee->delete();
 
-        return response()->json(' Employees Deleted successfully');
+        return response()->json('Employees Deleted successfully');
     }
 }

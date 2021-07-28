@@ -5,14 +5,14 @@
             <div class="col-md-8">
                 <div class="card">
                   <div class="card-header">
-                      Create Employees
+                      Update Employees
                       <router-link  :to="{name: 'EmployeesIndex'}"  class="float-right">Back</router-link>
 
 
                   </div>
 
                  <div class="card-body">
-                    <form @submit.prevent="storeEmployees">
+                    <form @submit.prevent="updateEmployees">
 
                          <div class="form-group row">
                             <label for="first_name" class="col-md-4 col-form-label text-md-right">First Name</label>
@@ -129,7 +129,7 @@
                         <div class="form-group row mb-0 mt-4">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                        Store
+                                        Update
                                 </button>
                             </div>
                         </div>
@@ -178,30 +178,42 @@ export default {
     created(){
         this.getCountries();
         this.getDepartments();
+        this.getEmployee();
     },
 
      methods: {
+            getEmployee(){
+                 axios.get("/api/employees/" + this.$route.params.id)
+                .then(res => {
+                    this.form = res.data.data;
+                    this.getStates();
+                    this.getCities();
+                    console.log(res.data)
+                }).catch(error => {
+                    console.log(console.error)
+                });
+            },
             getCountries(){
                 axios.get("/api/employees/countries")
                 .then(res => {
                     this.countries = res.data;
-                    // console.log(res.data)
+                    console.log(res.data)
                 }).catch(error => {
                     console.log(console.error)
                 });
             },
             getStates(){
-                axios.get("/api/employees/" + this.form.country_id + "/states")
+                axios.get("/api/employees/"+ this.form.country_id + "/states")
                     .then(res => {
                         this.states = res.data;
-                        // console.log(res.data)
+                        console.log(res.data)
                     })
                     .catch(error => {
                         console.log(console.log);
                     });
             },
             getCities(){
-                axios.get("/api/employees/" + this.form.state_id + "/cities")
+                axios.get("/api/employees/"+ this.form.state_id + "/cities")
                     .then(res => {
                         this.cities = res.data;
                     })
@@ -218,8 +230,8 @@ export default {
                         console.log(console.error);
                     });
             },
-            storeEmployees() {
-                axios.post("/api/employees", {
+            updateEmployees() {
+                axios.put("/api/employees/" + this.$route.params.id, {
                     'first_name': this.form.first_name,
                     'last_name': this.form.last_name,
                     'middle_name': this.form.middle_name,
@@ -232,12 +244,13 @@ export default {
                    'birthdate': this.format_date(this.form.birthdate),
                     'date_hired': this.format_date(this.form.date_hired)
                     }).then(res => {
-                        this.$router.push({name: "EmployeesIndex"});
+                        this.$router.push({name: 'EmployeesIndex'});
                     }).catch(error =>{
                         console.log(error);
                     });
             },
-            format_date(value){
+            format_daye(value){
+
                 if(value){
                     return moment(String(value)).format('YYYYMMDD');
                 }

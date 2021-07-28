@@ -41,7 +41,7 @@ class EmployeeDataController extends Controller
      */
     public function departments()
     {
-        $departments = department::all();
+        $departments = Department::all();
 
         return response()->json($departments);
     }
